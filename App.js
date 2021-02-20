@@ -10,6 +10,10 @@ import AccountScreen from './src/screens/AccountScreen';
 import TrackCreateScreen from './src/screens/TrackCreateScreen';
 import TrackDetailScreen from './src/screens/TrackDetailScreen';
 import TrackListScreen from './src/screens/TrackListScreen';
+// PROVIDER
+import { Provider as AuthProvider } from './src/context/AuthContext';
+
+////
 
 // STACKS //
 const loginStack = createStackNavigator({
@@ -46,4 +50,11 @@ const switchNav = createSwitchNavigator({
 //   }
 // );
 
-export default createAppContainer(switchNav);
+const App = createAppContainer(switchNav);
+export default () => {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  );
+};
