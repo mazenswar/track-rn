@@ -1,5 +1,4 @@
 import React, { createContext, useReducer } from 'react';
-import { Children } from 'react';
 
 export default (reducer, actions, defaultValue) => {
   const Context = createContext();

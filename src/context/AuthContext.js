@@ -1,9 +1,10 @@
 import createDataContext from './createDataContext';
+import trackerAPI from '../api/tracker';
 
 const authReducer = (state, { type, payload }) => {
   switch (type) {
-    case 'signin':
-      return state;
+    case 'login':
+      return payload;
     case 'signout':
       return {};
     default:
@@ -12,11 +13,17 @@ const authReducer = (state, { type, payload }) => {
 };
 
 const signup = (dispatch) => {
-  return ({ email, password }) => {
-    //
-
-    //
-    dispatch({ type: 'signup', payload: { email, password } });
+  return async ({ email, password }) => {
+    try {
+      const response = await trackerAPI.post('/signup', { email, password });
+      console.log(response);
+      dispatch({
+        type: 'login',
+        payload: response.data,
+      });
+    } catch (e) {
+      console.log(e.response.data);
+    }
   };
 };
 
@@ -30,7 +37,7 @@ const signout = (dispatch) => {
   };
 };
 
-export const { Provider, Contenxt } = createDataContext(
+export const { Provider, Context } = createDataContext(
   authReducer,
   { signup, signin, signout },
   { isSignedIn: false }
