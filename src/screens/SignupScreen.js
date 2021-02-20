@@ -1,20 +1,47 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Text, Input, Button } from 'react-native-elements';
+import Spacer from '../components/Spacer';
 
-export default function SignupScreen({ navigation }) {
+function SignupScreen({ navigation }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   return (
-    <>
-      <Text style={{ fontSize: 48 }}>SignupScreen</Text>
-      <Button
-        title="Go to Sign in"
-        onPress={() => navigation.navigate('Signin')}
-      />
-      <Button
-        title="Go to mainFLow"
-        onPress={() => navigation.navigate('mainFlow')}
-      />
-    </>
+    <View style={styles.container}>
+      <Spacer>
+        <Text h3>Sign Up for Tracker</Text>
+        <Input
+          autoCapitalize="none"
+          autoCorrect={false}
+          label="Email"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <Input
+          autoCapitalize="none"
+          autoCorrect={false}
+          label="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+        <Button title="Sign Up" />
+      </Spacer>
+    </View>
   );
 }
 
-const styles = StyleSheet.create({});
+SignupScreen.navigationOptions = () => {
+  return { headerShown: false };
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    borderColor: 'red',
+    borderWidth: 2,
+    justifyContent: 'space-evenly',
+  },
+});
+
+export default SignupScreen;
