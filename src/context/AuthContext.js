@@ -4,9 +4,11 @@ import trackerAPI from '../api/tracker';
 const authReducer = (state, { type, payload }) => {
   switch (type) {
     case 'login':
-      return payload;
-    case 'signout':
+      return { ...state, ...payload };
+    case 'logout':
       return {};
+    case 'add_error':
+      return { ...state, errorMessage: payload };
     default:
       return state;
   }
@@ -22,13 +24,20 @@ const signup = (dispatch) => {
         payload: response.data,
       });
     } catch (e) {
-      console.log(e.response.data);
+      dispatch({ type: 'add_error', payload: 'Ops! Something went wrong' });
     }
   };
 };
 
 const signin = (dispatch) => {
-  return ({ email, password }) => {};
+  return async ({ email, password }) => {
+    try {
+      const response = await trackerAPI.post('/signin', { email, password });
+      console.log(response.data);
+    } catch (e) {
+      dispatch({ type: 'add_error', payload: 'Ops! Something went wrong' });
+    }
+  };
 };
 
 const signout = (dispatch) => {
@@ -40,5 +49,5 @@ const signout = (dispatch) => {
 export const { Provider, Context } = createDataContext(
   authReducer,
   { signup, signin, signout },
-  { isSignedIn: false }
+  { isSignedIn: false, errorMessage: null }
 );

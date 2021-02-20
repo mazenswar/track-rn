@@ -8,6 +8,7 @@ function SignupScreen({ navigation }) {
   const { state, signup } = useContext(TrackerContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  console.log(state);
   return (
     <View style={styles.container}>
       <Spacer>
@@ -27,7 +28,14 @@ function SignupScreen({ navigation }) {
           onChangeText={setPassword}
           secureTextEntry
         />
+        {state.errorMessage ? (
+          <Text style={styles.errorMessage}>{state.errorMessage}</Text>
+        ) : null}
         <Button title="Sign Up" onPress={() => signup({ email, password })} />
+        <Button
+          title="Already a member? click here to Sign In"
+          onPress={() => navigation.navigate('Signin')}
+        />
       </Spacer>
     </View>
   );
@@ -43,6 +51,10 @@ const styles = StyleSheet.create({
     borderColor: 'red',
     borderWidth: 2,
     justifyContent: 'space-evenly',
+  },
+  errorMessage: {
+    fontSize: 28,
+    color: 'red',
   },
 });
 
