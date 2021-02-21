@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, Input, Button } from 'react-native-elements';
 import Spacer from '../components/Spacer';
 import { Context as TrackerContext } from '../context/AuthContext';
@@ -32,10 +32,11 @@ function SignupScreen({ navigation }) {
           <Text style={styles.errorMessage}>{state.errorMessage}</Text>
         ) : null}
         <Button title="Sign Up" onPress={() => signup({ email, password })} />
-        <Button
-          title="Already a member? click here to Sign In"
-          onPress={() => navigation.navigate('Signin')}
-        />
+        <TouchableOpacity onPress={() => navigation.navigate('Signin')}>
+          <Text style={styles.link}>
+            Already a member? click here to Sign In
+          </Text>
+        </TouchableOpacity>
       </Spacer>
     </View>
   );
@@ -55,6 +56,9 @@ const styles = StyleSheet.create({
   errorMessage: {
     fontSize: 28,
     color: 'red',
+  },
+  link: {
+    color: 'blue',
   },
 });
 

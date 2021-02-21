@@ -14,6 +14,7 @@ import TrackListScreen from './src/screens/TrackListScreen';
 import { Provider as AuthProvider } from './src/context/AuthContext';
 
 ////
+import { setNavigator } from './src/navigationRef';
 
 // STACKS //
 const loginStack = createStackNavigator({
@@ -54,7 +55,7 @@ const App = createAppContainer(switchNav);
 export default () => {
   return (
     <AuthProvider>
-      <App />
+      <App ref={setNavigator} />
     </AuthProvider>
   );
 };
