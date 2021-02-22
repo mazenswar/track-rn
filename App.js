@@ -15,6 +15,7 @@ import { Provider as AuthProvider } from './src/context/AuthContext';
 
 ////
 import { setNavigator } from './src/navigationRef';
+import LoadingScreen from './src/screens/LoadingScreen';
 
 // STACKS //
 const loginStack = createStackNavigator({
@@ -28,6 +29,7 @@ const trackStack = createStackNavigator({
 ////
 // Switch Navigator //
 const switchNav = createSwitchNavigator({
+  loading: LoadingScreen,
   loginFlow: loginStack,
   mainFlow: createBottomTabNavigator({
     trackListFlow: trackStack,
@@ -38,7 +40,6 @@ const switchNav = createSwitchNavigator({
 
 const App = createAppContainer(switchNav);
 export default () => {
-  useEffect(() => {}, []);
   return (
     <AuthProvider>
       <App ref={setNavigator} />

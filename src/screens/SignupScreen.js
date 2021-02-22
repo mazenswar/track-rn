@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { Context as TrackerContext } from '../context/AuthContext';
@@ -6,12 +6,8 @@ import AuthForm from '../components/AuthForm';
 import NavLink from '../components/NavLink';
 
 function SignupScreen({ navigation }) {
-  const { state, signup, clearErrorMessages, tryLocalSignin } = useContext(
-    TrackerContext
-  );
-  useEffect(() => {
-    tryLocalSignin();
-  }, []);
+  const { state, signup, clearErrorMessages } = useContext(TrackerContext);
+
   return (
     <View style={styles.container}>
       <NavigationEvents onWillFocus={clearErrorMessages} />

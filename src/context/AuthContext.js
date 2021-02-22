@@ -13,13 +13,15 @@ const authReducer = (state, { type, payload }) => {
       return { ...state, errorMessage: payload };
     case 'clear_errors':
       return { ...state, errorMessage: null };
+    case 'signout':
+      return { errorMessage: null, token: null };
     default:
       return state;
   }
 };
 
 const tryLocalSignin = (dispatch) => async () => {
-  const token = AsyncStorage.getItem('token');
+  const token = await AsyncStorage.getItem('token');
   if (token) {
     dispatch({ type: 'login', payload: token });
     navigate('TrackList');
@@ -61,10 +63,11 @@ const signin = (dispatch) => async ({ email, password }) => {
   }
 };
 
-const signout = (dispatch) => {
-  return () => {
-    dispatch({ type: 'signout' });
-  };
+const signout = (dispatch) => async () => {
+  console.log('');
+  await AsyncStorage.removeItem('token');
+  dispatch({ type: 'signout' });
+  navigate('Signin');
 };
 
 export const { Provider, Context } = createDataContext(
