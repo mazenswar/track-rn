@@ -1,24 +1,27 @@
-import React, { useState, useContext } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Text, Input, Button } from 'react-native-elements';
-import Spacer from '../components/Spacer';
+import React, { useEffect, useContext } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import { Context as TrackerContext } from '../context/AuthContext';
 import AuthForm from '../components/AuthForm';
+import NavLink from '../components/NavLink';
 
 function SignupScreen({ navigation }) {
-  const { state, signup } = useContext(TrackerContext);
-
+  const { state, signup, clearErrorMessages, tryLocalSignin } = useContext(
+    TrackerContext
+  );
+  useEffect(() => {
+    tryLocalSignin();
+  }, []);
   return (
     <View style={styles.container}>
+      <NavigationEvents onWillFocus={clearErrorMessages} />
       <AuthForm
-        headerText="Sign In"
+        headerText="Sign Up"
         errorMessage={state.errorMessage}
         onSubmit={signup}
         submitButtonText="Create Account"
       />
-      <TouchableOpacity onPress={() => navigation.navigate('Signin')}>
-        <Text style={styles.link}>Already a member? click here to Sign In</Text>
-      </TouchableOpacity>
+      <NavLink text="Already a member? Log In" routeName="Signin" />
     </View>
   );
 }
@@ -37,9 +40,6 @@ const styles = StyleSheet.create({
   errorMessage: {
     fontSize: 28,
     color: 'red',
-  },
-  link: {
-    color: 'blue',
   },
 });
 

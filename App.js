@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -35,24 +35,10 @@ const switchNav = createSwitchNavigator({
     Account: AccountScreen,
   }),
 });
-// //
-// const navigator = createStackNavigator(
-//   {
-//     Signup: SignupScreen,
-//     Signin: SigninScreen,
-//     Account: AccountScreen,
-//     TrackCreate: TrackCreateScreen,
-//     TrackDetails: TrackDetailScreen,
-//     TrackList: TrackListScreen,
-//   },
-//   {
-//     initialRouteName: 'Signup',
-//     defaultNavigationOptions: { title: 'Tracks' },
-//   }
-// );
 
 const App = createAppContainer(switchNav);
 export default () => {
+  useEffect(() => {}, []);
   return (
     <AuthProvider>
       <App ref={setNavigator} />
