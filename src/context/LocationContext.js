@@ -9,4 +9,14 @@ const reducer = (state, { type, payload }) => {
   }
 };
 
-// export const { Context, Provider } = createDataContext(reducer, actions, initialState)
+const actions = {};
+const initialState = {
+  recording: false,
+  locations: [],
+  currentLocation: null,
+};
+export const { Context, Provider } = createDataContext(
+  reducer,
+  actions,
+  initialState
+);
