@@ -9,8 +9,8 @@ export default (shouldTrack, callback) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    let subscriber;
     const startWatching = async () => {
-      let subscriber;
       try {
         const { granted } = await requestPermissionsAsync();
         if (!granted) {
@@ -36,7 +36,7 @@ export default (shouldTrack, callback) => {
       }
       subscriber = null;
     }
-    return () => {
+    return (subscriber) => {
       if (subscriber) {
         subscriber.remove();
       }

@@ -1,4 +1,4 @@
-import createDataContext from './';
+import createDataContext from './createDataContext';
 
 const reducer = (state, { type, payload }) => {
   switch (type) {
@@ -12,7 +12,9 @@ const reducer = (state, { type, payload }) => {
 };
 
 const fetchTracks = (dispatch) => () => {};
-const createTrack = (dispatch) => () => {};
+const createTrack = (dispatch) => (name, locations) => {
+  console.log(name, locations.length);
+};
 
 export const { Context, Provider } = createDataContext(
   reducer,
